@@ -1,0 +1,7 @@
+apply plugin: 'org.springframework.boot'
+
+archivesBaseName= 'idleb-portal'
+
+dependencies {
+
+}

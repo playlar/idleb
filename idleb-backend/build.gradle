@@ -1,0 +1,84 @@
+group = 'me.idleb'
+version = '0.0.1-SNAPSHOT'
+
+ext{
+	lombokVersion = '1.18.6'
+	swaggerVersion = '2.9.2'
+}
+
+buildscript{
+	ext{
+		springBootVersion = '2.1.5.RELEASE'
+	}
+	repositories{
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+		jcenter()
+		mavenCentral()
+	}
+	dependencies{
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'idea'
+repositories{
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+	jcenter()
+	mavenCentral()
+}
+
+buildscript {
+	ext {
+		springBootVersion = '2.1.5.RELEASE'
+	}
+	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+subprojects {
+	apply plugin: 'idea'
+	apply plugin: 'java'
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+	[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+	repositories {
+		jcenter()
+		mavenCentral()
+		maven {
+			url 'https://repo.spring.io/libs-milestone'
+		}
+	}
+
+	//Spring dependency-management Plugin Configuration
+	apply plugin: 'io.spring.dependency-management'
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+		}
+	}
+
+
+	dependencies {
+
+		implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+		implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+
+		compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+		annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+
+
+		compileOnly "org.projectlombok:lombok:${lombokVersion}"
+		annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	}
+}
+
+task clean {
+	rootProject.buildDir.deleteDir()
+}

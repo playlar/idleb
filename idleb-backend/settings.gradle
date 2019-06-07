@@ -1,0 +1,12 @@
+rootProject.name = 'idleb-backend'
+
+include 'idleb-search',
+        'idleb-portal',
+        'idleb-boss'
+
+include 'framework-cache',
+        'framework-common',
+        'framework-db',
+        'framework-thirdparty',
+        'framework-utils'
+
